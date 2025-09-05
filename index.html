@@ -9,30 +9,33 @@
 margin: 0;
 user-select: none;
 padding: 0;
+font-size: 1.1em;
+text-align: justify;
     }
     body {
       font-family: 'Courier New', Courier, monospace;
       background: #1c1c1c;
-      height: 100%;
+height: 100%;
     }
     .juego{
         display: flex;
       justify-content: center;
       flex-direction: column;
       align-items: center;
-      gap: 50px;
+      gap: 30px;
       height: 100%;
       width: 100%;
 
     }
     .container {
       display: flex;
-      background: #2c2c2c;
-padding: 30px;      width: 90%;
+      background: #2c2c2c;    
+        width: 90%;
       justify-content: space-around;
-      align-items: center;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      height: 100%;
+position: relative;
     }
     .instrucciones-container{
         display: flex;
@@ -41,24 +44,29 @@ padding: 30px;      width: 90%;
         justify-content: start;
         padding: 30px;
         width: 100%;
+        text-align: justify;
         color: #fff;
-font-size: 1em;    }
+    }
     .column {
       display: flex;
       flex-direction: column;
       gap: 30px;
+      height: 100%;
+
     }
     .item {
       padding: 10px;
       background: #4c4c4c;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 1em;
       transition: 0.3s;
       font-weight: bold;
       color: #fff;
       text-align: center;
-      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .item:hover {
       background: #6c6c6c;
@@ -70,27 +78,78 @@ font-size: 1em;    }
       background: #e51a4c !important;
     }
     #right{
+        flex: 60%;
+        padding: 15px;
+      
+    }
+    #right .item{
+        padding: 30px;
+        text-align: justify;
+    }
+    #left{
+        flex: 40%;
         display: flex;
-        width: 60%;
+        flex-direction: column;
+        height: 100%;
+        position: sticky;
+        text-align: justify;
+        padding: 10px;
+        top:25vh;
+    }
+   
+    #left .item:first-child{
+        top: 10%;
+    }
+    #left .item:nth-child(2){
+        top: 20%;
+    }
+    #left .item:nth-child(3){
+        top: 30%;
+    }
+    .Titulo{
+        font-size: 2em;
+    }
+    .instrucciones-container p{
+        font-size: 1.7em;
+    }
+    .item{
+        font-size: 1.6em;
+        
+    }
+    .id{
+        font-size: 1.7em;
+        padding: 10px;
+        border-radius: 100%; 
+        width: 1.7em;
+        height: 1.7em;
+        margin: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #4c4c4c;
     }
   </style>
 </head>
 <body>
     <div class="juego">
     <div class="instrucciones-container">
-        <h3 class="Titulo">Instrucciones:</h3>
-        <p>Relaciona los nombres segun su concepto</p>
+        <h3 class="Titulo">Ejercicio</h3>
+        <hr style="width: 100%; color: #fff; margin: 20px 0;">
+        <p>Relaciona las metodologías según sus características</p>
     </div>
   <div class="container">
     <div class="column" id="left">
-      <div class="item" data-match="1">Cascada</div>
-      <div class="item" data-match="2">Espiral</div>
-      <div class="item" data-match="3">Prototipo</div>
+      <div class="item" data-match="1">1.- Cascada.</div>
+      <div class="item" data-match="2">2.- Espiral.</div>
+      <div class="item" data-match="3">3.- Prototipo.</div>
     </div>
     <div class="column" id="right">
-      <div class="item concepto Prototipo " data-match="3">Marco ágil basado en sprints y roles definidos.</div>
-      <div class="item concepto Cascada" data-match="1">proceso de gestión de proyectos lineal y secuencial, donde cada fase del proyecto debe completarse antes de que se pueda iniciar la siguiente, como una cascada que fluye hacia abajo</div>
-      <div class="item concepto Espiral" data-match="2" >Metodología secuencial en fases rígidas.</div>
+      <div class="item concepto Prototipo " data-match="3">Se basa en la creación de una implementación parcial de un sistema, para el propósito explícito de aprender sobre los requerimientos del sistema. <div class="id"></div></div>
+      <div class="item concepto Cascada" data-match="1">El proyecto se divide en distintas fases secuenciales, donde el equipo puede pasar a la siguiente fase sólo cuando se haya completado la anterior.<div class="id"></div></div>
+      <div class="item concepto Espiral" data-match="2" >No hay fases fijas tales como especificación o diseño. <div class="id"></div></div>
+         <div class="item concepto Prototipo " data-match="3">Este es dado a los usuarios, clientes o representantes de ellos, posibilitando que ellos experimenten con el prototipo <div class="id"></div></div>
+      <div class="item concepto Cascada" data-match="1">No se puede volver a la fase anterior. Es decir, una vez que alguna pieza de producto sale de la máquina, no lo puedes resetear.<div class="id"></div></div>
+      <div class="item concepto Espiral" data-match="2" >Con cada iteración alrededor de la espiral, se construyen sucesivas versiones del software, cada vez más completas. <div class="id"></div> </div>
     </div>
   </div>
 </div>
@@ -122,6 +181,11 @@ font-size: 1em;    }
 
             firstSelection.classList.add("correct");
             item.classList.add("correct");
+            item.children[0].innerHTML=""; 
+            item.children[0].innerHTML=`${firstSelection.dataset.match}`
+            console.log(item.children[0])
+
+
             if(item.classList.contains("wrong") && firstSelection.classList.contains("wrong")){
                 item.classList.remove("wrong"); 
                 firstSelection.classList.remove("wrong")
@@ -130,6 +194,8 @@ font-size: 1em;    }
           } else if (firstSelection !== item) {
             firstSelection.classList.add("wrong");
             item.classList.add("wrong");
+            item.children[0].innerHTML=""; 
+            item.children[0].innerHTML=`${firstSelection.dataset.match}`
             if(item.classList.contains("correct") && firstSelection.classList.contains("correct"))
             setTimeout(() => {
               firstSelection.classList.remove("wrong");
@@ -147,3 +213,4 @@ font-size: 1em;    }
   </script>
 </body>
 </html>
+
