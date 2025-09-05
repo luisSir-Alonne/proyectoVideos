@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyecto Metodologias</title>
+  <style>
+    *{
+              box-sizing: border-box;
+margin: 0;
+user-select: none;
+padding: 0;
+    }
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background: #1c1c1c;
+      height: 100%;
+    }
+    .juego{
+        display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      height: 100%;
+      width: 100%;
+
+    }
+    .container {
+      display: flex;
+      background: #2c2c2c;
+padding: 30px;      width: 90%;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .instrucciones-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding: 30px;
+        width: 100%;
+        color: #fff;
+font-size: 1em;    }
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .item {
+      padding: 10px;
+      background: #4c4c4c;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      
+    }
+    .item:hover {
+      background: #6c6c6c;
+    }
+    .correct {
+      background: #00913f !important;
+    }
+    .wrong {
+      background: #e51a4c !important;
+    }
+    #right{
+        display: flex;
+        width: 60%;
+    }
+  </style>
+</head>
+<body>
+    <div class="juego">
+    <div class="instrucciones-container">
+        <h3 class="Titulo">Instrucciones:</h3>
+        <p>Relaciona los nombres segun su concepto</p>
+    </div>
+  <div class="container">
+    <div class="column" id="left">
+      <div class="item" data-match="1">Cascada</div>
+      <div class="item" data-match="2">Espiral</div>
+      <div class="item" data-match="3">Prototipo</div>
+    </div>
+    <div class="column" id="right">
+      <div class="item concepto Prototipo " data-match="3">Marco ágil basado en sprints y roles definidos.</div>
+      <div class="item concepto Cascada" data-match="1">proceso de gestión de proyectos lineal y secuencial, donde cada fase del proyecto debe completarse antes de que se pueda iniciar la siguiente, como una cascada que fluye hacia abajo</div>
+      <div class="item concepto Espiral" data-match="2" >Metodología secuencial en fases rígidas.</div>
+    </div>
+  </div>
+</div>
+  <script>
+    let firstSelection = null;
+
+    document.querySelectorAll(".item").forEach(item => {
+      item.addEventListener("click", (e) => {
+        if(  e.target.classList.contains("concepto")){
+             if(item.classList.contains("wrong") || item.classList.contains("correct")){
+                item.classList.remove("wrong"); 
+                item.classList.remove("correct"); 
+
+        }
+      }
+        if (!firstSelection && !e.target.classList.contains("concepto")) {
+            if(item.classList.contains("wrong") || item.classList.contains("correct")){
+                item.classList.remove("wrong"); 
+                item.classList.remove("correct"); 
+
+        }
+          firstSelection = item;
+          console.log(firstSelection);
+          item.style.background = "#7c7c7c";
+        } else {
+            if(e.target.classList.contains("concepto")){
+
+          if (firstSelection.dataset.match === item.dataset.match && firstSelection !== item && e.target.classList.contains("concepto")) {
+
+            firstSelection.classList.add("correct");
+            item.classList.add("correct");
+            if(item.classList.contains("wrong") && firstSelection.classList.contains("wrong")){
+                item.classList.remove("wrong"); 
+                firstSelection.classList.remove("wrong")
+
+            }
+          } else if (firstSelection !== item) {
+            firstSelection.classList.add("wrong");
+            item.classList.add("wrong");
+            if(item.classList.contains("correct") && firstSelection.classList.contains("correct"))
+            setTimeout(() => {
+              firstSelection.classList.remove("wrong");
+              item.classList.remove("wrong");
+              firstSelection.style.background = "#7c7c7c";
+              item.style.background = "#7c7c7c";
+            }, 800);
+          }
+          firstSelection.style.background = "#7c7c7c";
+          firstSelection = null;
+        }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
