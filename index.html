@@ -14,7 +14,7 @@ text-align: justify;
     }
     body {
       font-family: 'Courier New', Courier, monospace;
-      background: #1c1c1c;
+      background: #0e0a1a;
 height: 100%;
     }
     .juego{
@@ -29,7 +29,7 @@ height: 100%;
     }
     .container {
       display: flex;
-      background: #2c2c2c;    
+      background: #1d1b2b;    
         width: 90%;
       justify-content: space-around;
       border-radius: 12px;
@@ -56,7 +56,7 @@ position: relative;
     }
     .item {
       padding: 10px;
-      background: #4c4c4c;
+      background: #2e2c3c;
       border-radius: 8px;
       cursor: pointer;
       transition: 0.3s;
@@ -69,7 +69,7 @@ position: relative;
       justify-content: center;
     }
     .item:hover {
-      background: #6c6c6c;
+      background: #4e4e5d;
     }
     .correct {
       background: #00913f !important;
@@ -96,7 +96,7 @@ position: relative;
         padding: 10px;
         top:25vh;
     }
-   
+  
     #left .item:first-child{
         top: 10%;
     }
@@ -107,7 +107,8 @@ position: relative;
         top: 30%;
     }
     .Titulo{
-        font-size: 2em;
+        font-size: 3em;
+        color: #39FF14;
     }
     .instrucciones-container p{
         font-size: 1.7em;
@@ -126,7 +127,7 @@ position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #4c4c4c;
+        background-color: #2e2c3c;
     }
   </style>
 </head>
@@ -147,7 +148,7 @@ position: relative;
       <div class="item concepto Prototipo " data-match="3">Se basa en la creación de una implementación parcial de un sistema, para el propósito explícito de aprender sobre los requerimientos del sistema. <div class="id"></div></div>
       <div class="item concepto Cascada" data-match="1">El proyecto se divide en distintas fases secuenciales, donde el equipo puede pasar a la siguiente fase sólo cuando se haya completado la anterior.<div class="id"></div></div>
       <div class="item concepto Espiral" data-match="2" >No hay fases fijas tales como especificación o diseño. <div class="id"></div></div>
-         <div class="item concepto Prototipo " data-match="3">Este es dado a los usuarios, clientes o representantes de ellos, posibilitando que ellos experimenten con el prototipo <div class="id"></div></div>
+         <div class="item concepto Prototipo " data-match="3">Este es dado a los usuarios, clientes o representantes de ellos, posibilitando que ellos experimenten con el prototipo. <div class="id"></div></div>
       <div class="item concepto Cascada" data-match="1">No se puede volver a la fase anterior. Es decir, una vez que alguna pieza de producto sale de la máquina, no lo puedes resetear.<div class="id"></div></div>
       <div class="item concepto Espiral" data-match="2" >Con cada iteración alrededor de la espiral, se construyen sucesivas versiones del software, cada vez más completas. <div class="id"></div> </div>
     </div>
@@ -173,7 +174,7 @@ position: relative;
         }
           firstSelection = item;
           console.log(firstSelection);
-          item.style.background = "#7c7c7c";
+          item.style.background = "#4e4e5d";
         } else {
             if(e.target.classList.contains("concepto")){
 
@@ -200,11 +201,11 @@ position: relative;
             setTimeout(() => {
               firstSelection.classList.remove("wrong");
               item.classList.remove("wrong");
-              firstSelection.style.background = "#7c7c7c";
-              item.style.background = "#7c7c7c";
+              firstSelection.style.background = "#4e4e5d";
+              item.style.background = "#4e4e5d";
             }, 800);
           }
-          firstSelection.style.background = "#7c7c7c";
+          firstSelection.style.background = "#4e4e5d";
           firstSelection = null;
         }
         }
@@ -213,4 +214,5 @@ position: relative;
   </script>
 </body>
 </html>
+
 
