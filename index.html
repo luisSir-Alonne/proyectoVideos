@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
   <title>Proyecto Metodologias</title>
   <style>
     *{
@@ -129,34 +131,56 @@ position: relative;
         align-items: center;
         background-color: #2e2c3c;
     }
+    .mensajeCompletado{
+        background-color: #1d1b2b;
+        color: #39FF14;
+        font-weight: bold;
+        font-size: 2em;
+        position: fixed;
+        border-radius: 20px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        padding: 40px;
+        animation: aparecer 3s linear;
+        top: 30%;
+    }
+    @keyframes aparecer{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
   </style>
 </head>
 <body>
     <div class="juego">
     <div class="instrucciones-container">
-        <h3 class="Titulo">Ejercicio</h3>
+        <h3 class="Titulo" id="title" data-final="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/five-nights-at-freddys-6-am.mp3">Ejercicio</h3>
         <hr style="width: 100%; color: #fff; margin: 20px 0;">
         <p>Relaciona las metodologías según sus características</p>
     </div>
-  <div class="container">
+  <div class="container" id="contenedorPrincipal">
     <div class="column" id="left">
       <div class="item" data-match="1">1.- Cascada.</div>
       <div class="item" data-match="2">2.- Espiral.</div>
       <div class="item" data-match="3">3.- Prototipo.</div>
     </div>
     <div class="column" id="right">
-      <div class="item concepto Prototipo " data-match="3">Se basa en la creación de una implementación parcial de un sistema, para el propósito explícito de aprender sobre los requerimientos del sistema. <div class="id"></div></div>
-      <div class="item concepto Cascada" data-match="1">El proyecto se divide en distintas fases secuenciales, donde el equipo puede pasar a la siguiente fase sólo cuando se haya completado la anterior.<div class="id"></div></div>
-      <div class="item concepto Espiral" data-match="2" >No hay fases fijas tales como especificación o diseño. <div class="id"></div></div>
-         <div class="item concepto Prototipo " data-match="3">Este es dado a los usuarios, clientes o representantes de ellos, posibilitando que ellos experimenten con el prototipo. <div class="id"></div></div>
-      <div class="item concepto Cascada" data-match="1">No se puede volver a la fase anterior. Es decir, una vez que alguna pieza de producto sale de la máquina, no lo puedes resetear.<div class="id"></div></div>
-      <div class="item concepto Espiral" data-match="2" >Con cada iteración alrededor de la espiral, se construyen sucesivas versiones del software, cada vez más completas. <div class="id"></div> </div>
+      <div class="item concepto Prototipo " data-match="3" data-audio="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/dry-fart.mp3" data-correcto="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/plants-vs-zombies-victory-jingle.mp3">Se basa en la creación de una implementación parcial de un sistema, para el propósito explícito de aprender sobre los requerimientos del sistema. <div class="id"></div></div>
+      <div class="item concepto Cascada" data-match="1" data-audio="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/brain-fart.mp3" data-correcto="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/xbox-rare-achievement.mp3">El proyecto se divide en distintas fases secuenciales, donde el equipo puede pasar a la siguiente fase sólo cuando se haya completado la anterior.<div class="id"></div></div>
+      <div class="item concepto Espiral" data-match="2" data-audio="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/buzzer-error.mp3"  data-correcto="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/subway-surfers-revive.mp3">No hay fases fijas tales como especificación o diseño. <div class="id"></div></div>
+         <div class="item concepto Prototipo " data-match="3" data-audio="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/epic-fail-sound-wahwahwah.mp3" data-correcto="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/goofy-yeha-yeehaa-yeeha-yehaa-ohio-sigma-skibidi.mp3">Este es dado a los usuarios, clientes o representantes de ellos, posibilitando que ellos experimenten con el prototipo. <div class="id"></div></div>
+      <div class="item concepto Cascada" data-match="1" data-audio="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/erro.mp3" data-correcto="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/android-sound-effect-meme.mp3">No se puede volver a la fase anterior. Es decir, una vez que alguna pieza de producto sale de la máquina, no lo puedes resetear.<div class="id"></div></div>
+      <div class="item concepto Espiral" data-match="2"  data-audio="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/fart-with-reverb.mp3" data-correcto="https://github.com/luisSir-Alonne/proyectoVideos/raw/refs/heads/main/android-notifications-pixie-dust.mp3">Con cada iteración alrededor de la espiral, se construyen sucesivas versiones del software, cada vez más completas. <div class="id"></div> </div>
     </div>
   </div>
 </div>
   <script>
     let firstSelection = null;
-
+    
     document.querySelectorAll(".item").forEach(item => {
       item.addEventListener("click", (e) => {
         if(  e.target.classList.contains("concepto")){
@@ -185,34 +209,129 @@ position: relative;
             item.children[0].innerHTML=""; 
             item.children[0].innerHTML=`${firstSelection.dataset.match}`
             console.log(item.children[0])
-
-
+            let audioCorrecto = new Audio(item.dataset.correcto)
+           audioCorrecto.play(); 
             if(item.classList.contains("wrong") && firstSelection.classList.contains("wrong")){
                 item.classList.remove("wrong"); 
                 firstSelection.classList.remove("wrong")
 
             }
           } else if (firstSelection !== item) {
+
             firstSelection.classList.add("wrong");
             item.classList.add("wrong");
             item.children[0].innerHTML=""; 
             item.children[0].innerHTML=`${firstSelection.dataset.match}`
+            let audio = new Audio(item.dataset.audio);
+            audio.autoplay;
+            console.log(audio)
+            audio.play();
             if(item.classList.contains("correct") && firstSelection.classList.contains("correct"))
-            setTimeout(() => {
-              firstSelection.classList.remove("wrong");
-              item.classList.remove("wrong");
-              firstSelection.style.background = "#4e4e5d";
+            item.classList.remove("correct"); 
+            firstSelection.classList.remove("correct")
+             firstSelection.style.background = "#4e4e5d";
               item.style.background = "#4e4e5d";
-            }, 800);
+        
           }
           firstSelection.style.background = "#4e4e5d";
           firstSelection = null;
+           let tiene = false; 
+          let valido = false; 
+    let validos = [
+                false, 
+                false, 
+                false, 
+                false, 
+                false 
+                
+            ]
+          let correctos = document.querySelectorAll(".concepto").forEach((concepto, index)=>{
+        
+            if(concepto.classList.contains("correct")){
+                validos[index] = true
+            }else{
+                validos[index] = false
+            }
+            console.log(valido)
+          }); 
+          for(i = 0; i<=validos.length; i++){
+            if(validos[i] === false){
+                valido = false; 
+            }
+          }
+          valido = validos.every(validacion => validacion === true)
+          if(valido ===true){
+            console.log("ahora es valido ")
+            let totales = document.querySelectorAll(".item").forEach(objeto=>{
+                if(objeto.classList.contains("wrong") && !objeto.classList.contains("concepto")){
+                    objeto.classList.remove("wrong")
+                     objeto.classList.add("correct")
+
+                }
+            })
+          }
+          let sonTodosV = [false, 
+            false, 
+            false, 
+          false, 
+          false, 
+          false
+          
+          ]; 
+    let todos = document.querySelectorAll(".concepto").forEach((item, index)=>{
+        if(item.classList.contains("correct") && item.classList.contains("concepto")){
+            console.log("si")
+            sonTodosV[index] = true
+        }else{
+            sonTodosV[index] = false;  
+        }
+        
+    }); 
+    for(i = 0; i<=sonTodosV.length; i++){
+            if(sonTodosV[i] === false){
+                tiene = false; 
+            }
+        
+          }
+          tiene = sonTodosV.every(valor => valor === true)
+          console.log(sonTodosV)
+    console.log(tiene)
+    console.log(valido)
+    console.log(document.querySelectorAll(".item"))
+    if(tiene ){
+       let final =  document.getElementById("title")
+        let audio = new Audio(final.dataset.final)
+        setTimeout(()=>{
+            audio.play()
+          let contenedor=  document.createElement("DIV"); 
+            contenedor.classList.add("mensajeCompletado"); 
+
+            contenedor.innerHTML=`<h2>!Ejercicio Completado¡</h2>`;
+            let contenedorPrincipal =  document.getElementById("contenedorPrincipal");
+            contenedorPrincipal.appendChild(contenedor)
+             
+            console.log(contenedor)
+        }, 500)
+        setTimeout(() =>{
+            confetti({
+    particleCount: 200,   
+    spread: 80,           
+    origin: { y: 0.6 }    
+  });
+        }, 7500)
+        
+
+     
+    }
         }
         }
       });
     });
+   
+   
   </script>
 </body>
 </html>
+
 
 
